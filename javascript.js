@@ -1,35 +1,15 @@
-// function myFunction() {
-//     fetch("https://developer.nps.gov/api/v1/parks?api_key=NrFMJhXv9gb93wxxB8x9PrFYV7AAfekpVuwSfVXW")  //start the download
-//     .then(function(response) {  //when done downloading
-//         let dataPromise = response.json();  //start encoding into an object
-//         return dataPromise;  //hand this Promise up
-//     })
-//     .then(function(data) {  //when done encoding
-//         console.log(data)
-        
-//         data.forEach(function(park)) {
-
-//         });
-//         });
-//   }
-
-
-//     let elem = document.querySelector('p');
-//     // elem.textContent = 'a=s'
-
-// let elem = document.querySelector('parkName');
-// elem.textContent = myFunction()
 var lastNameUsed = "";
 var mymap = L.map('mapid').setView([37.505, -95], 5);
+mymap.scrollWheelZoom.disable();
+
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox.streets',
+    id: 'mapbox.emerald',
     accessToken: 'pk.eyJ1IjoiY29ubmVydyIsImEiOiJjandjdDBxaWwwamhpNGFudTFid2pkbmh0In0.au27WRMDuKhNlPddEK8RCw'
 }).addTo(mymap);
 
-//state
+// Current state of the page
 let state = {
     inputtedState: '',
     inputtedType: '',
@@ -39,78 +19,74 @@ let state = {
     statedata: []
 };
 
-//Getting user input from forms
+
 let form = document.querySelector('form');
-form.addEventListener('submit', function(event) {
+form.addEventListener('submit', function (event) {
     event.preventDefault();
     let stateInput = document.querySelector('#stateInput');
     let categoryInput = document.querySelector('#type');
+    // Base URL
     let url = "https://developer.nps.gov/api/v1/";
 
-   state.inputtedState = stateInput.value;
-   state.inputtedType = categoryInput.value;
-    url = url + state.inputtedType + "?stateCode=" + state.inputtedState+ "&api_key=NrFMJhXv9gb93wxxB8x9PrFYV7AAfekpVuwSfVXW";
-    
-    let data = fetch(url,{mode: 'cors'});
+    state.inputtedState = stateInput.value;
+    state.inputtedType = categoryInput.value;
+
+    // Build URL given category and state
+    url = url + state.inputtedType + "?stateCode=" + state.inputtedState + "&api_key=NrFMJhXv9gb93wxxB8x9PrFYV7AAfekpVuwSfVXW";
+
+    let data = fetch(url, { mode: 'cors' });
 
     data.then(function (response) {
         return response.json();
     }).then(function (newdata) {
         newdata = newdata.data;
-      console.log(newdata);
-      //resetMap()
-
-    getItems(newdata);
-
-
-      getMap();
-      makeList();
+        resetMap();
+        resetCards();
+        getItems(newdata);
+        getMap();
+        makeList();
     })
 
-    
+
 })
 
+// Get data for articles
 artURL = "https://developer.nps.gov/api/v1/articles?api_key=NrFMJhXv9gb93wxxB8x9PrFYV7AAfekpVuwSfVXW"
-let articles = fetch(artURL,{mode: 'cors'});
-articles.then(function (response){
+let articles = fetch(artURL, { mode: 'cors' });
+articles.then(function (response) {
     return response.json();
-}).then(function (newarticles){
+}).then(function (newarticles) {
     newarticles = newarticles.data;
     makeArticles(newarticles);
 })
 
-
 function getItems(newdata) {
-    newdata.forEach(function(item) {
-            state.statedata.push(item)
+    newdata.forEach(function (item) {
+        state.statedata.push(item)
     });
-    console.log(state.statedata);
-} 
+}
 
+// Builds the map and adds markers
 function getMap() {
     let marker;
     var data = state.statedata;
-    
-    for(let i = 0; i < data.length; i++) {
+
+    for (let i = 0; i < data.length; i++) {
         if (data[i].latLong != "") {
             latitude = data[i].latLong.split(',')[0].split(':')[1]
             latitude = latitude.substring(0, latitude.length - 1);
             longitude = data[i].latLong.split(',')[1].split(':')[1]
             longitude = longitude.substring(0, longitude.length - 1);
-            // console.log(data[i].latLong.split(',')[0].split(':')[1])
-            // console.log(data[i].latLong.split(',')[1].split(':')[1])
-            console.log(latitude)
-            console.log(longitude)
-            if(longitude != null) {
+            if (latitude != null) {
                 marker = L.marker([latitude, longitude]);
                 mymap.addLayer(marker);
                 marker.addTo(mymap);
-                if (data[i].name != null){
-                    nameLink = '<a href="#' + data[i].name+ '">' + data[i].name+ '</a>'
+                if (data[i].name != null) {
+                    nameLink = '<a href="#' + data[i].name + '">' + data[i].name + '</a>'
                     lastNameUsed = data[i].name;
-                     marker.bindPopup(nameLink);
-                } else { 
-                    nameLink = '<a href="#' + data[i].title+ '">' + data[i].title+ '</a>'
+                    marker.bindPopup(nameLink);
+                } else {
+                    nameLink = '<a href="#' + data[i].title + '">' + data[i].title + '</a>'
                     lastNameUsed = data[i].title;
                     marker.bindPopup(nameLink);
                 }
@@ -121,17 +97,17 @@ function getMap() {
     }
 }
 
+// Makes the cards for the different parks/campgrounds (depends on category chosen by user)
 function makeList() {
     var data = state.statedata;
-
-
     let listDiv = document.querySelector('#list');
     let arttitle = document.createElement('h1');
     arttitle.textContent = "Adventure Near You"
     listDiv.appendChild(arttitle)
-
+    // Different categories have different title for the fields we want, we need different
+    // for loops to build the cards for all the categories.
     if (state.inputtedType == "parks") {
-        for(let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let main = document.createElement('div');
             main.classList.add("listCard");
 
@@ -142,9 +118,13 @@ function makeList() {
 
             main.appendChild(newName);
 
+            let lineBreak = document.createElement('br');
+            main.appendChild(lineBreak);
+
             var parkurl = data[i].url;
-            let newparkurl = document.createElement('p');
-            newparkurl.textContent = "Park Website: " + parkurl;
+            let newparkurl = document.createElement('a');
+            newparkurl.setAttribute("href", parkurl);
+            newparkurl.textContent = "Park Website";
             main.appendChild(newparkurl);
 
             var desc = data[i].description;
@@ -170,7 +150,7 @@ function makeList() {
         }
     }
     if (state.inputtedType == "campgrounds") {
-        for(let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let main = document.createElement('div');
             main.classList.add("listCard");
 
@@ -199,7 +179,7 @@ function makeList() {
         }
     }
     if (state.inputtedType == "places") {
-        for(let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let main = document.createElement('div');
             main.classList.add("listCard");
 
@@ -209,9 +189,13 @@ function makeList() {
             newName.textContent = name;
             main.appendChild(newName);
 
+            let lineBreak = document.createElement('br');
+            main.appendChild(lineBreak);
+
             var parkurl = data[i].url;
-            let newparkurl = document.createElement('p');
-            newparkurl.textContent = "Park Website: " + parkurl;
+            let newparkurl = document.createElement('a');
+            newparkurl.setAttribute("href", parkurl);
+            newparkurl.textContent = "Park Website";
             main.appendChild(newparkurl);
 
             var desc = data[i].listingdescription;
@@ -234,7 +218,7 @@ function makeList() {
         }
     }
     if (state.inputtedType == "parks") {
-        for(let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let main = document.createElement('div');
             main.classList.add("listCard");
 
@@ -245,9 +229,13 @@ function makeList() {
 
             main.appendChild(newName);
 
+            let lineBreak = document.createElement('br');
+            main.appendChild(lineBreak);
+
             var parkurl = data[i].url;
-            let newparkurl = document.createElement('p');
-            newparkurl.textContent = "Park Website: " + parkurl;
+            let newparkurl = document.createElement('a');
+            newparkurl.setAttribute("href", parkurl);
+            newparkurl.textContent = "Park Website";
             main.appendChild(newparkurl);
 
             var desc = data[i].description;
@@ -273,7 +261,7 @@ function makeList() {
         }
     }
     if (state.inputtedType == "visitorcenters") {
-        for(let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             let main = document.createElement('div');
             main.classList.add("listCard");
 
@@ -283,9 +271,13 @@ function makeList() {
             newName.textContent = name;
             main.appendChild(newName);
 
+            let lineBreak = document.createElement('br');
+            main.appendChild(lineBreak);
+
             var parkurl = data[i].url;
-            let newparkurl = document.createElement('p');
-            newparkurl.textContent = "Park Website: " + parkurl;
+            let newparkurl = document.createElement('a');
+            newparkurl.setAttribute("href", parkurl);
+            newparkurl.textContent = "Park Website";
             main.appendChild(newparkurl);
 
             var desc = data[i].description;
@@ -302,13 +294,13 @@ function makeList() {
         }
     }
 }
-
+// Creates the cards for the articles section
 function makeArticles(newarticles) {
     let listDiv = document.querySelector('#articles');
     let arttitle = document.createElement('h1');
     arttitle.textContent = "Articles"
     listDiv.appendChild(arttitle)
-    for(let i = 0; i < newarticles.length; i++) {
+    for (let i = 0; i < newarticles.length; i++) {
 
         let main = document.createElement('div');
         main.classList.add("listCard");
@@ -316,16 +308,12 @@ function makeArticles(newarticles) {
         var title = newarticles[i].title;
         let url = newarticles[i].url;
         let newName = document.createElement('a');
-        newName.setAttribute('href',url)
-        newName.textContent= title
+        newName.setAttribute('href', url)
+        newName.textContent = title.substring(0, 30) + "..."
         main.appendChild(newName);
-
 
         let lineBreak = document.createElement('br');
         main.appendChild(lineBreak);
-
-
-       
 
         var photoUrl = newarticles[i].listingimage.url;
         var altText = newarticles[i].listingimage.altText
@@ -333,16 +321,30 @@ function makeArticles(newarticles) {
 
         newphoto.setAttribute('src', photoUrl)
         newphoto.setAttribute('alt', altText)
-        newphoto.setAttribute('width', "250")
-        newphoto.setAttribute('height', "250")
         main.appendChild(newphoto);
 
 
         var desc = newarticles[i].listingdescription;
         let newDesc = document.createElement('p');
-        newDesc.textContent = "Description: " + desc;
+        newDesc.textContent = desc.substring(0, 30) + "...";
         main.appendChild(newDesc);
 
         listDiv.appendChild(main);
     }
+}
+
+// Resets the map so the user can search multiple times without refreshing page
+function resetMap() {
+    for (let i = 0; i < state.markers.length; i++) {
+        mymap.removeLayer(state.markers[i]);
+    }
+    state.marker = '';
+    state.markers = [];
+    state.statedata = [];
+
+}
+
+// Resets the cards so a new place/category can be chosen.
+function resetCards() {
+    document.getElementById('list').innerHTML = '';
 }

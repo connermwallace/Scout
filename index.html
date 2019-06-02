@@ -1,56 +1,52 @@
 <html lang="en">
-  <head>
+<head>
+    <title>Explore More</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin=""/>
-
-  
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
     <link rel="stylesheet" href="style.css">
-
- </head>  
-
-
+    <link href='https://fonts.googleapis.com/css?family=Karla' rel='stylesheet'>
+</head>
 
 <body>
     <header>
         <div class="sticky">
-          <div class="topnav">
-            <a class="active" href="#home">iExplore</a>
-            <a href="#search">Search</a>
-            <a href="#articles">Articles</a>
-          </div>
+            <div class="topnav">
+                <a class="active" href="#home">iExplore</a>
+                <a href="#search">Search</a>
+                <a href="#articles">Articles</a>
+            </div>
         </div>
-  </header>
+    </header>
 
-  <section>
-      <div class="headerImage">
-        <div id="map-title">
-            <a name = "search"></a>
-            <h2>Search For Your Next Adventure</h2>
-        </div> 
-        <div class="container search-sec">
+    <section>
+        <div class="headerImage">
+            <div id="map-title">
+                <a name="search"></a>
+                <h2>Search For Your Next Adventure</h2>
+            </div>
+            <div class="container search-sec">
                 <form name="contact-form" method="POST" action=# novalidate="novalidate">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control search-slt" id="stateInput" aria-label="Type in wanted zipcode"
-                                        placeholder="Enter State, ie: DC">
+                                    <input type="text" class="form-control search-slt" id="stateInput"
+                                        aria-label="Type in wanted zipcode" placeholder="Enter State Code, ie: DC">
                                 </div>
                                 <div class="col-md-3">
-                                        <select class="form-control search-slt" role="option"
-                                            aria-selected="true" id="type">
-                                            <option>Choose A Category to Visit!</option>
-                                            <option>campgrounds</option>
-                                            <option>parks</option>
-                                            <option>places</option>
-                                            <option>visitorcenters</option>
-                                        </select>
-                                    </div>
-    
+                                    <select class="form-control search-slt" role="option" aria-selected="true"
+                                        id="type">
+                                        <option>Choose A Category to Visit!</option>
+                                        <option>campgrounds</option>
+                                        <option>parks</option>
+                                        <option>places</option>
+                                        <option>visitorcenters</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-3">
                                     <button type="submit" class="button">Search!</button>
                                 </div>
@@ -60,16 +56,10 @@
                 </form>
             </div>
         </div>
-
-    <div id="mapid"></div>
-
-    <div id="list"></div>
-    <div id="articles"><a name = "articles"></a></div>
-
-  </section>
-  
-
-
+        <div id="mapid"></div>
+        <div id="list"></div>
+        <div id="articles"><a name="articles"></a></div>
+    </section>
 </body>
 <script src="javascript.js"></script>
 </html>

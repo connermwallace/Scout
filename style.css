@@ -2,37 +2,52 @@
   font-family:Arial, Helvetica, sans-serif;
 }
 
+@font-face {
+  font-family: BebasNeue;
+  src: url('fonts/bebasneue-bold-webfont.woff');
+}
+
+h1 {
+  font-family: BebasNeue;
+  font-size:40px;
+  padding: 0;
+}
+
 h2 {
+  font-family: BebasNeue;
   display: inline;
   color: white;
+  font-weight: bold;
+  font-size:30px;
+
 }
 
 .topnav {
+  font-family: BebasNeue;
   background-color: #F7882F;
   overflow: hidden;
   width: 100%;
   height: 30px;
+  font-weight: bold;
 }
 
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  color: #ffffff;
+  font-family: BebasNeue;
+  font-weight: bold;
   text-align: center;
   padding-left: 16px;
+  padding-right: 16px;
   padding-top: 5px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 20px;
 }
-.bar {
-  background-color: rgb(148, 34, 14);
-}
-
-#more {display: none;}
 
 .topnav a:hover {
-  background-color: rgb(107, 102, 49);
-  border-radius: 5px;
+  background-color:  rgb(224, 126, 46);
 }
+
 .sticky {
   position: fixed;
   top: 0;
@@ -40,20 +55,21 @@ h2 {
 }
 
 #mapid { 
-  height: 800px;
- }
+  height: 850px;
+}
 
- #map-title {
-   padding-top: 60px;
-   text-align: center;
- }
- .row {
-   text-align: center
- }
+#map-title {
+  padding-top: 60px;
+  text-align: center;
+}
 
- .col-md-3 {
+.row {
+  text-align: center
+}
+
+.col-md-3 {
   display: inline-block;
- }
+}
 
 input[type=text] {
   border-radius: 10px;
@@ -67,14 +83,16 @@ input[type=text] {
   transition-duration: 0.4s;
   background-color: #F7C331;  
   border: none;
-  color: white;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
   padding: 5px 20px;
   text-align: center;
   display: inline-block;
-  font-size: 16px;
+  font-size: 18px;
   height: 30px;
   border-radius: 10px;
 }
+
 .search-slt{
   display: block;
   width: 100%;
@@ -83,14 +101,15 @@ input[type=text] {
   height: 30px;
   border-radius: 5px;
 }
-.wrn-btn{
+
+/* .wrn-btn{
   width: 100%;
   border: 1px solid #ccc;
   border-radius:5px;
-}
+} */
 
 .button:hover {
-  background-color: rgb(85, 18, 6); /* Green */
+  background-color: rgb(85, 18, 6);  
   color: white;
 }
 
@@ -102,31 +121,64 @@ input[type=text] {
 }
 
 .listCard {
-  background-color: rgba(247, 137, 47, 0.13);
-  border-radius:10px;
-  padding-top: 30px;
-}
-.listCard a{
-  padding-left: 10px;
+  background: #fefefe;
+	border: 2px solid #fcfcfc;
+	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+	margin: 0 2px 15px;
+	padding: 40px;
+	padding-bottom: 10px;
+  display: inline-block;
+  break-inside: avoid;
 }
 
-.listCard h2 {
-  text-align: center;
+.listCard img {
+  width: 250px; height:250px;
+	border-bottom: 2px solid rgb(128, 127, 127);
+	padding-bottom: 8px;
 }
+
 .listCard p {
-  padding-left: 10px
+  font-size: 1rem;
+  color: rgb(128, 127, 127);
+  line-height: 1.5;
 }
 
-.list h1 {
+.listCard a {
+  max-width:200px;
+  word-wrap:break-word;
   text-align: center;
 }
+
 #articles h1 {
   text-align: center;
+  background-color: #F7882F;
+  border-radius: 10px;
+  color: white;
+}
+
+#list h1 {
+  text-align: center;
+  background-color: #F7882F;
+  border-radius: 10px;
+  color: white;
 }
 
 #articles img {
   display: block;
-  border-radius: 5px;
+  border-radius: 8px;
   margin-left: auto;
   margin-right: auto;
+} 
+
+#list p {
+  max-width:850px;
+  word-wrap:break-word;
 }
+
+#articles a {
+  text-decoration: none;
+}
+
+
+
+
