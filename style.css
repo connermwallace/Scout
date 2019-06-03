@@ -19,7 +19,6 @@ h2 {
   color: white;
   font-weight: bold;
   font-size:30px;
-
 }
 
 .topnav {
@@ -27,7 +26,7 @@ h2 {
   background-color: #F7882F;
   overflow: hidden;
   width: 100%;
-  height: 30px;
+  height: 35px;
   font-weight: bold;
 }
 
@@ -39,9 +38,14 @@ h2 {
   text-align: center;
   padding-left: 16px;
   padding-right: 16px;
-  padding-top: 5px;
+  padding-top: 13px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
+}
+
+a.active {
+  padding-top:8px;
+  font-size: 25px;
 }
 
 .topnav a:hover {
@@ -121,26 +125,35 @@ input[type=text] {
 }
 
 .listCard {
-  background: #fefefe;
-	border: 2px solid #fcfcfc;
-	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-	margin: 0 2px 15px;
-	padding: 40px;
-	padding-bottom: 10px;
+  background-color: #eee;
   display: inline-block;
+  margin: 0 0 2em;
+  width: 100%;
   break-inside: avoid;
+  border-radius: 8px;
+  transition: opacity .4s ease-in-out;
+
 }
+.listCard h3 {
+  color: black;
+  padding: 0;
+  margin-bottom: 0px;
+  text-align: center;
+} 
 
 .listCard img {
-  width: 250px; height:250px;
-	border-bottom: 2px solid rgb(128, 127, 127);
-	padding-bottom: 8px;
+  width: 380px; height:auto;
+  padding-bottom: 0px;
+  border-radius: 4px;
+  margin-top:0;
+  padding-top:0px;
 }
 
-.listCard p {
+#articles .listCard p {
   font-size: 1rem;
   color: rgb(128, 127, 127);
   line-height: 1.5;
+  text-align: center;
 }
 
 .listCard a {
@@ -149,14 +162,14 @@ input[type=text] {
   text-align: center;
 }
 
-#articles h1 {
-  text-align: center;
-  background-color: #F7882F;
-  border-radius: 10px;
-  color: white;
+
+#articles {
+  column-gap: 2em;
 }
 
-#list h1 {
+
+
+.ArticleTitle {
   text-align: center;
   background-color: #F7882F;
   border-radius: 10px;
@@ -165,10 +178,17 @@ input[type=text] {
 
 #articles img {
   display: block;
-  border-radius: 8px;
   margin-left: auto;
+  margin-top: -10px;
   margin-right: auto;
 } 
+
+#articles h3 {
+  color: black;
+  padding: 0;
+  margin-bottom: 0px;
+  text-align: center;
+}
 
 #list p {
   max-width:850px;
@@ -179,6 +199,38 @@ input[type=text] {
   text-decoration: none;
 }
 
+#articles:hover .listCard:not(:hover) {
+	opacity: 0.4;
+}
+
+@media only screen and (min-width: 1600px) {
+  #list {
+    columns:3;
+  }
+}
+
+@media only screen and (max-width: 1599px) and (min-width:1200px) {
+  #list {
+    columns: 2;
+  }
+}
 
 
+@media only screen and (min-width: 1600px) {
+  #articles {
+    columns:4;
+  }
+}
+
+@media only screen and (max-width: 1599px) and (min-width:1200px) {
+  #articles {
+    columns: 3;
+  }
+}
+
+@media only screen and (max-width: 1199px) and (min-width:768px) {
+  #articles {
+    columns: 2;
+  }
+}
 
