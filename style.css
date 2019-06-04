@@ -47,6 +47,14 @@ body {
   font-size: 18px;
 }
 
+.alert {
+  background-color: rgba(214, 39, 39, 0.438);
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px;
+}
+
 a.active {
   padding-top:3px;
   font-size: 25px;
@@ -145,7 +153,11 @@ input[type=text] {
   padding: 0;
   margin-bottom: 0px;
   text-align: center;
+  
 } 
+#list .listCard h3 {
+  margin-top: 5px;
+}
 
 .listCard img {
   width: 380px; height:auto;
@@ -159,6 +171,11 @@ input[type=text] {
   margin-right: auto;
 }
 
+.listCard p {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
 #articles .listCard p {
   font-size: 1rem;
   color: rgb(128, 127, 127);
@@ -166,7 +183,10 @@ input[type=text] {
   text-align: center;
 }
 
+
+
 .listCard a {
+  padding: 1em;
   max-width:200px;
   word-wrap:break-word;
   text-align: center;
@@ -204,7 +224,7 @@ input[type=text] {
 }
 
 #articles:hover .listCard:not(:hover) {
-	opacity: 0.4;
+  opacity: 0.6;
 }
 
 @media only screen and (min-width: 1600px) {

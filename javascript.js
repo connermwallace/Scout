@@ -2,12 +2,16 @@ var lastNameUsed = "";
 var mymap = L.map('mapid').setView([37.505, -95], 5);
 mymap.scrollWheelZoom.disable();
 
+var activeAlerts = {};
+
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox.emerald',
     accessToken: 'pk.eyJ1IjoiY29ubmVydyIsImEiOiJjandjdDBxaWwwamhpNGFudTFid2pkbmh0In0.au27WRMDuKhNlPddEK8RCw'
 }).addTo(mymap);
+
+
 
 
 // Current state of the page
@@ -61,6 +65,19 @@ articles.then(function (response) {
     makeArticles(newarticles);
 })
 
+
+
+
+alerturl = "https://developer.nps.gov/api/v1/alerts?limits=500&api_key=NrFMJhXv9gb93wxxB8x9PrFYV7AAfekpVuwSfVXW"
+let alerts = fetch(alerturl, { mode: 'cors' });
+alerts.then(function (response) {
+    return response.json();
+}).then(function (alerts) {
+    alerts = alerts.data;
+    makeAlerts(alerts);
+})
+
+
 function getItems(newdata) {
     newdata.forEach(function (item) {
         state.statedata.push(item)
@@ -70,8 +87,8 @@ function getItems(newdata) {
 // Builds the map and adds markers
 function getMap() {
     let marker;
+    let mapzoom;
     var data = state.statedata;
-
     for (let i = 0; i < data.length; i++) {
         if (data[i].latLong != "") {
             latitude = data[i].latLong.split(',')[0].split(':')[1]
@@ -80,6 +97,7 @@ function getMap() {
             longitude = longitude.substring(0, longitude.length - 1);
             if (latitude != null) {
                 marker = L.marker([latitude, longitude]);
+                mapzoom = [latitude, longitude];
                 mymap.addLayer(marker);
                 marker.addTo(mymap);
                 if (data[i].name != null) {
@@ -96,6 +114,7 @@ function getMap() {
             }
         }
     }
+    mymap.setView([latitude, longitude], 6.5);
 }
 
 // Makes the cards for the different parks/campgrounds (depends on category chosen by user)
@@ -122,6 +141,13 @@ function makeList() {
             let lineBreak = document.createElement('br');
             main.appendChild(lineBreak);
 
+            if (activeAlerts[data[i].parkCode] != null) {
+                let alert = document.createElement('p');
+                alert.classList.add("alert");
+                alert.textContent = "Alert: " + activeAlerts[data[i].parkCode];
+                main.appendChild(alert);
+            }
+
             var parkurl = data[i].url;
             let newparkurl = document.createElement('a');
             newparkurl.setAttribute("href", parkurl);
@@ -147,6 +173,8 @@ function makeList() {
             let newdesig = document.createElement('p');
             newdesig.textContent = "Designation: " + desig;
             main.appendChild(newdesig);
+
+         
             listDiv.appendChild(main);
         }
     }
@@ -181,6 +209,7 @@ function makeList() {
 
         }
     }
+
     if (state.inputtedType == "places") {
         for (let i = 0; i < data.length; i++) {
             let main = document.createElement('div');
@@ -312,7 +341,6 @@ function resetMap() {
     state.marker = '';
     state.markers = [];
     state.statedata = [];
-
 }
 
 // Resets the cards so a new place/category can be chosen.
@@ -321,3 +349,8 @@ function resetCards() {
 }
 
 
+function makeAlerts(alerts) {
+    for (let i = 0; i < alerts.length; i++) {
+        activeAlerts[alerts[i].parkCode] = alerts[i].title 
+    }
+}
