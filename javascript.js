@@ -102,6 +102,8 @@ function getMap() {
 function makeList() {
     var data = state.statedata;
     let listDiv = document.querySelector('#list');
+    let showTitle = document.querySelector('.ArticleTitle');
+    showTitle.style.display="block";
     // Different categories have different title for the fields we want, we need different
     // for loops to build the cards for all the categories.
     if (state.inputtedType == "parks") {
@@ -156,8 +158,10 @@ function makeList() {
             var name = data[i].name;
             let newName = document.createElement('a');
             newName.setAttribute('name', name);
-            newName.textContent = name;
+            let titlename = document.createElement('h3');
+            titlename.textContent = name;
             main.appendChild(newName);
+            main.appendChild(titlename);
 
             var desc = data[i].description;
             let newDesc = document.createElement('p');
@@ -185,8 +189,10 @@ function makeList() {
             var name = data[i].title;
             let newName = document.createElement('a');
             newName.setAttribute('name', name);
-            newName.textContent = name;
+            let titlename = document.createElement('h3');
+            titlename.textContent = name;
             main.appendChild(newName);
+            main.appendChild(titlename);
 
             let lineBreak = document.createElement('br');
             main.appendChild(lineBreak);
@@ -225,8 +231,10 @@ function makeList() {
             var name = data[i].name;
             let newName = document.createElement('a');
             newName.setAttribute('name', name);
-            newName.textContent = name;
+            let titlename = document.createElement('h3');
+            titlename.textContent = name;
             main.appendChild(newName);
+            main.appendChild(titlename);
 
             let lineBreak = document.createElement('br');
             main.appendChild(lineBreak);
@@ -254,12 +262,17 @@ function makeList() {
 // Creates the cards for the articles section
 function makeArticles(newarticles) {
     let listDiv = document.querySelector('#articles');
-        
+    let showTitle = document.querySelectorAll('.ArticleTitle')[1];
+    showTitle.style.display="block";
+
     for (let i = 0; i < newarticles.length; i++) {
+        let testLink = document.createElement('a');
+        let url = newarticles[i].url;
+        testLink.setAttribute("href", url);
 
         let main = document.createElement('div');
         main.classList.add("listCard");
-
+        testLink.appendChild(main);
         // var title = newarticles[i].title;
         // let url = newarticles[i].url;
         // let newName = document.createElement('a');
@@ -277,18 +290,17 @@ function makeArticles(newarticles) {
         var photoUrl = newarticles[i].listingimage.url;
         var altText = newarticles[i].listingimage.altText
         let newphoto = document.createElement('img');
-
         newphoto.setAttribute('src', photoUrl)
         newphoto.setAttribute('alt', altText)
         main.appendChild(newphoto);
-
 
         var desc = newarticles[i].listingdescription;
         let newDesc = document.createElement('p');
         newDesc.textContent = desc.substring(0, 50) + "...";
         main.appendChild(newDesc);
 
-        listDiv.appendChild(main);
+        testLink.appendChild(main);
+        listDiv.appendChild(testLink);
     }
 }
 
