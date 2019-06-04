@@ -9,6 +9,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoiY29ubmVydyIsImEiOiJjandjdDBxaWwwamhpNGFudTFid2pkbmh0In0.au27WRMDuKhNlPddEK8RCw'
 }).addTo(mymap);
 
+
 // Current state of the page
 let state = {
     inputtedState: '',
