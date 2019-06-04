@@ -319,3 +319,5 @@ function resetMap() {
 function resetCards() {
     document.getElementById('list').innerHTML = '';
 }
+
+
