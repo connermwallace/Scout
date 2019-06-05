@@ -13,3 +13,5 @@ If you want to read articles about all the incredible parks the US has to offer,
 * Clicking on the title for a pin on the map will take you directly to a description of that park. 
 ### Articles
 * Clicking the articles link at the top, or scrolling down, you will be able to read as many articles as the NPS API has to offer.
+### Alerts
+* Using all the alerts available on the NPS API, if a park has a current alert in affect, its description will have a large red alert displaying the alert.
