@@ -1,10 +1,12 @@
 # Capital One Software Engineering Summit Project
+Conner Wallace
 _________________________________________________
 
 ## About the Project
 Scout is a tool designed to help with finding information about national parks near you. Simply enter your state and choose a category that interests you. Once this is done you will be greeted by several pins on the map for you to explore. Clicking on one and clicking on the name will show you more details about that place. 
 
 If you want to read articles about all the incredible parks the US has to offer, simply click on the articles link on the top left. Here you can see each articles name, photo, and description. If one interests you, click on the title to read more! 
+_________________________________________________
 
 ## Feature Overview
 ### Search
