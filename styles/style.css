@@ -2,10 +2,9 @@
   font-family:Arial, Helvetica, sans-serif;
 }
 
-
 @font-face {
   font-family: BebasNeue;
-  src: url('fonts/bebasneue-bold-webfont.woff');
+  src: url('../fonts/bebasneue-bold-webfont.woff');
 }
 
 h1 {
@@ -131,7 +130,7 @@ input[type=text] {
 
 
 .headerImage {
-  background-image: url("img/banner.jpg");
+  background-image: url("../img/banner.jpg");
   margin-bottom: -10px;
   padding-bottom: 15px;
   width: 100%;
