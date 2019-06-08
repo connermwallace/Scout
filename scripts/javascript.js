@@ -34,7 +34,7 @@ form.addEventListener('submit', function (event) {
     let url = "https://developer.nps.gov/api/v1/";
 
     state.inputtedState = stateInput.value;
-    state.inputtedType = categoryInput.value;
+    state.inputtedType = categoryInput.value.replace(/\s+/g, '').toLowerCase();
 
     // Build URL given category and state
     url = url + state.inputtedType + "?stateCode=" + state.inputtedState + "&api_key=NrFMJhXv9gb93wxxB8x9PrFYV7AAfekpVuwSfVXW";

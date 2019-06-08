@@ -7,6 +7,7 @@ _________________________________________________
 Scout is a tool designed to help with finding information about national parks near you. Simply enter your state and choose a category that interests you. Once this is done you will be greeted by several pins on the map for you to explore. Clicking on one and clicking on the name will show you more details about that place. 
 
 If you want to read articles about all the incredible parks the US has to offer, simply click on the articles link on the top left. Here you can see each articles name, photo, and description. If one interests you, click on the card to read more! 
+Available here: connermwallace.github.io
 _________________________________________________
 ## Screenshots
 ### Home
@@ -34,6 +35,13 @@ _________________________________________________
 * Want to find areas close to where you are? All you have to do is enter your state and Scout will automatically show you all the locations in your state that match your search. 
 * Created using leaflet, an open source javascript library
 _________________________________________________
+## API/Tech used
+### National Park Services API
+[https://www.nps.gov/subjects/developer/api-documentation.htm](https://www.nps.gov/subjects/developer/api-documentation.htm)
+### Leaflet JS
+[https://leafletjs.com/](https://leafletjs.com/)
+_________________________________________________
+
 
 ## Obstacles
 * NPS API contained broken image links, and listed the lat long data in different formats
